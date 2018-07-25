@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homepage</title>
+</head>
+<body>
+  
+  <center><h1>
+    This is the home page of our website
+  </h1></center>{% block content %}
+  <center><p>please enter the login credentials or register</p></center>
+ <center> <div>
+
+    <form action="enter/"  method="POST">
+      {% csrf_token %}
+      <p>
+         Username : <input type="text" name="uname" placeholder="Example1234">
+      </p>
+      <p>
+         Password : <input type="text" name="passw" placeholder="Password">        
+      </p>
+      <p>
+        remember me : <input type="checkbox" name="remember">
+      </p>
+      <p>
+        <input type="submit" value="Login">
+      </p>
+    </center>
+      
+    </form>
+    <center>for new user registere here <a href="register">REGISTER</a></center>
+  </div>
+{% endblock %}
+</body>
+</html>
