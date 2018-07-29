@@ -1,37 +1,51 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import *
+from .forms import RegForm,login_form
+from django.urls import reverse
  
 
 # Create your views HttpResponse.
-def home(request):
+'''def home(request):
 	return render(request,'base.html')
-
-def register(request):
+'''
+'''def register(request):
 	return render(request,'register.html')
+'''
+def reg(request):	
+	if request.method=='POST':
+		form = RegForm(request.POST)
+	
+		if(form.is_valid()):
+			print("hello world")
+			a=form.save(commit=False)
 
-def reg(request):
-	u=request.POST['uname']
-	p=request.POST['passw']
-	t=request.POST['title']
-	tx=request.POST['texts']
-	obj = Person.objects.create(usern=u,passw=p,title=t,text=t)
-	return render(request,'base.html')
-
+			a.user=request.user
+			a.save()
+			
+			return HttpResponseRedirect(reverse('login'))
+	else:
+	
+		form = RegForm()
+	return render(request,'register.html',{'form':form})
 
 def checkcre(request):
-	uname=request.POST['uname']
-	passw=request.POST['passw']
-	check=uname+passw
-	objects=get_object_or_404(Person,usern=uname,passw=passw)
-	if(objects.DoesNotExist):
-		return HttpResponse("wrong password or username")
-	
-		
-	else:
-		return render(request,'login.html',{
-			'uname':uname,
-			'passw':passw
-			})
+	if request.method=='POST':
+		form = login_form(request.POST)
+		if(form.is_valid()):
+			user_n= form.cleaned_data['user_name']
+			pass_w= form.cleaned_data['pass_word']
 
+			try:
+				check_cre=Credentials.objects.get(usern=user_n,passw=pass_w)
+			except (KeyError, Credentials.DoesNotExist):
+				return HttpResponse("worng username and password")
+
+			else:
+				return HttpResponse("correct answer you win!!!!!")
+
+	else:
+
+		form = login_form()
+	return render(request,'base.html',{'form':form})
 	

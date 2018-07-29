@@ -1,18 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<h1>register</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>register</title>
+</head>
+<body>
+	<center><h1>register</h1></center>
 <center>
-	<form action="reg" method="POST">
+	<form action="{% url 'register' %}" method="POST">
 		{% csrf_token %}
-		<p>enter username <input type="text" name="uname"></p>
-		<p>enter password <input type="text" name="passw"></p>
-		<p>enter title <input type="text" name="title"></p>
-		<p>enter text <input type="text" name="texts"></p>
-		<p><input type="submit" value="submit"></p>
+			{{ form }}
+
+	<input type="submit" value="submit">
 
 	</form>
 
 
 </center>
-{% endblock %}
+
+</body>
+</html>

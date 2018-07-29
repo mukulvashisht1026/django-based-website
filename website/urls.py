@@ -18,9 +18,9 @@ from django.urls import path#,include
 from myapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',home),
-    path('login/enter/',checkcre),
-    path('login/registration.html',register,name='register'),
-	path('login/reg',reg)
+    #path('login/',home,name='login'),
+    path('login/',checkcre,name='check'),
+    path('login/registration.html',reg,name='register'),
+	#path('login/reg/',reg)
 	#path('account/',include('django.contrib.auth.urls')),    
 ]
